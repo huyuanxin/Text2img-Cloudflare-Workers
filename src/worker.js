@@ -66,6 +66,13 @@ export default {
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type',
     };
+    
+    const gateway = {
+      gateway: {
+        id: "text2img", // Use your gateway label here
+        skipCache: true, // Optional: Skip cache if needed
+      }
+    }
 
     if (request.method === 'OPTIONS') {
       return new Response(null, {
@@ -146,7 +153,7 @@ export default {
           console.log(`Generating image with ${model} and prompt: ${inputs.prompt.substring(0, 50)}...`);
           
           try {
-            const response = await env.AI.run(model, inputs);
+            const response = await env.AI.run(model, inputs, gateway);
   
             // Processing the response of the flux-1-schnell model
             if (data.model === 'flux-1-schnell') {
